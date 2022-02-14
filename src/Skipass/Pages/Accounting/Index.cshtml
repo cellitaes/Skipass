@@ -1,0 +1,52 @@
+@page
+@model Skipass.Pages.Accounting.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    int previous = Model.PageNumber - 1;
+    int next = Model.PageNumber + 1;
+}
+
+<h1>Index</h1>
+<p>
+    <a asp-page="/Accounting/Index" asp-route-pageNumber="@previous">Previous Month</a>
+    <a asp-page="/Accounting/Index" asp-route-pageNumber="@next">Next Month</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Items[0].Company.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items[0].Passages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items[0].Share)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items[0].Money)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Share)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Money)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

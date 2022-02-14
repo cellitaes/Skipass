@@ -1,0 +1,72 @@
+@page
+@model Skipass.Pages.SellSkipass.CreateModel
+
+
+<div class="form">
+    <form action="" method="POST">
+        <label class="form__label" for=""> GUID Karty:
+            <input class="form__input" type="text" name="Identifier" maxlength="6" minlength="6">
+        </label>
+        <span class="text-danger">@Html.ValidationMessage("cardAlreadyCharged")</span>
+
+        <label class="form__label" for=""> Karnet czasowy:
+            <select class="form__input selectList" name="ChosenPriceList">
+                @foreach (var item in @ViewBag.Prices)
+                {
+                    <option data-price="@item.Price" value="@item.Identifier">@item.Name</option>
+                }
+            </select>
+        </label>
+
+        <label class="form__label" for=""> Ilość zjazdów:
+            <input class="form__input onChange" type="number" min="0" name="PassagesLeft">
+        </label>
+        <span class="totallSum">Suma do zapłaty: <span>0 </span>zł</span>
+        <button class="formularz__button formularz__position" type="submit">Zakończ transakcję</button>
+    </form>
+
+    <button class="form__random-guid">Generuj Losowy GUID</button>
+</div>
+
+<script>
+    const numInput = document.querySelector(".onChange");
+    const selectList = document.querySelector(".selectList");
+    const totallSum = document.querySelector(".totallSum > span");
+    const generateID = document.querySelector(".form__random-guid");
+    const IDinput = document.querySelector(".form__input");
+
+    numInput.addEventListener("change", (e) => {
+        totallSum.innerText = 0;
+
+        if (e.target.value > 0) {
+            selectList.setAttribute("disabled", "");
+            totallSum.innerText = e.target.value * 2 + 12;
+        } else {
+            selectList.removeAttribute("disabled");
+        }
+    })
+
+    selectList.addEventListener("change", (e) => {
+        totallSum.innerText = 0;
+
+        if (e.target.value != "-1") {
+            numInput.setAttribute("disabled", "");
+            totallSum.innerText = ($(e.target).find(':selected').data('price') * 1 + 12);
+        } else {
+            numInput.removeAttribute("disabled");
+        }
+    })
+
+    generateID.addEventListener("click", () => {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < 6; i++) {
+            result += characters.charAt(Math.floor(Math.random() *
+                charactersLength));
+        }
+
+        IDinput.value = result;
+    })
+
+</script>

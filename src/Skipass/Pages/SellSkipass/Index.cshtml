@@ -1,0 +1,49 @@
+@page
+@model Skipass.Pages.SellSkipass.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+   
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cards[0].Identifier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cards[0].ValidTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cards[0].PassagesLeft)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Cards) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Identifier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValidTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassagesLeft)
+            </td>
+            <td>
+                <a asp-area="" asp-route-id="@item.Identifier" asp-page="/Recharge/Index">Doładuj</a>
+            </td>
+        </tr>
+}
+  
+
+    </tbody>
+</table>

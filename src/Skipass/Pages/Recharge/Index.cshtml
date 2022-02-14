@@ -1,0 +1,52 @@
+@page
+@model Skipass.Pages.Recharge.CreateModel
+
+@{
+    @* var ValidTo = ViewData["ValidTo"]; *@
+    int PassagesLeft = (int)(ViewData["PassagesLeft"] ?? 0);
+    bool StillValid = (bool)(ViewData["StillValid"] ?? false);
+}
+
+<div class="form">
+    <form method="POST" asp-route-id='@ViewData["CardID"]'>
+        <span class="needRecharge"></span>
+        <label class="form__label" for=""> GUID Karty:
+            <input class="form__input" type="text" name="Identifier" disabled value='@ViewData["CardID"]'>
+        </label>
+
+        <label class="form__label" for=""> Karnet czasowy:
+            <select class="form__input selectList" name="ChosenPriceList" @(PassagesLeft == 0 ? "" : "disabled")>
+                @foreach (var item in @ViewBag.Prices)
+                {
+                    <option data-price="@item.Price" value="@item.Identifier">@item.Name</option>
+                }
+            </select>
+        </label>
+
+        <label class="form__label" for=""> Ilość zjazdów:
+            <input class="form__input onChange" type="number" min="0" name="PassagesLeft" @(StillValid == false ? "" :
+                "disabled")>
+        </label>
+        <span class="totallSum">Suma do zapłaty: <span>0 </span>zł</span>
+        <button class="formularz__button formularz__position" type="submit">Zakończ transakcję</button>
+    </form>
+
+</div>
+
+<script>
+    const numInput = document.querySelector(".onChange");
+    const selectList = document.querySelector(".selectList");
+    const totallSum = document.querySelector(".totallSum > span");
+    const needRecharge = document.querySelector(".needRecharge");
+
+
+    selectList.addEventListener("change", (e) => {
+        totallSum.innerText = $(e.target).find(':selected').data('price');
+    })
+
+    numInput.addEventListener("change", (e) => {
+        totallSum.innerText = e.target.value * 2;
+    })
+
+
+</script>

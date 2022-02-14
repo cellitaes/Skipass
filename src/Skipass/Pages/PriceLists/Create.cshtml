@@ -1,0 +1,18 @@
+@page
+@model Skipass.Pages.PriceLists.CreateModel
+
+<div class="form">
+    <form action="" method="POST">
+        <label class="form__label" for=""> Nazwa:
+            <input class="form__input" type="text" name="Name">
+        </label>
+        <label class="form__label" for=""> Cena:
+            <input class="form__input" type="number" min="0" name="Price">
+        </label>
+        <label class="form__label" for=""> Liczba godzin:
+            <input class="form__input" type="number" min="0" name="Hours">
+        </label>
+
+        <button class="formularz__button formularz__position" type="submit">Dodaj do cennika</button>
+    </form>
+</div>

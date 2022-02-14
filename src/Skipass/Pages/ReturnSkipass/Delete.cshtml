@@ -1,0 +1,29 @@
+@page
+@model Skipass.Pages.ReturnSkipass.DeleteModel
+
+
+<div class="form">
+    <form action="" method="POST">
+        <label class="form__label" for=""> GUID Karty:
+            <input class="form__input" type="text" name="Identifier" maxlength="6" minlength="6">
+        </label>
+        <span class="text-danger">@Html.ValidationMessage("cardNotExist")</span>
+        <span class="totallSum">Suma do wypłaty: <span></span></span>
+        <button class="formularz__button formularz__position" type="submit">Wypłać</button>
+    </form>
+</div>
+
+<script>
+
+    const formInput = document.querySelector(".form__input");
+    const totallSum = document.querySelector(".totallSum > span");
+
+
+    formInput.addEventListener("change", () => {
+        if (formInput.value.length == 6) {
+            totallSum.innerText = "12 zł";
+        }
+    })
+
+
+</script>

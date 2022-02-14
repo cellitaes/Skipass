@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<div class="text-center">
+    <div class="container">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <main class="main-panel">
+                <div class="main-panel__container">
+                    <div class="main-panel__option">
+                        <a asp-area="" asp-page="/SellSkipass/Index">Doładuj karnet</a>
+                    </div>
+                    <div class="main-panel__option">
+                        <a asp-area="" asp-page="/ReturnSkipass/Delete">Zwróć karnet</a>
+                    </div>
+                    @* <!-- <div class="main-panel__option">
+                        <a href="#"></a>
+                        </div>
+                        <div class="main-panel__option">
+                        <a href="#">coś</a>
+                        </div> --> *@
+                </div>
+            </main>
+        }
+        else
+        {
+            <p class="warning-text">Zaloguj się</p>
+        }
+    </div>
+</div>
